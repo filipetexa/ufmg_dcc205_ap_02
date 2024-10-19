@@ -1,5 +1,30 @@
 # Avaliação Comparativa de Algoritmos de Ordenação
 ## Especificações
+### Metricas de Avaliação dos Algoritimos
+- Comparações
+- Movimentações
+- Chamadas de função
+
+### Estratégia
+- Avaliação baseada em contadores
+- Instrumentação explícita
+    - Avaliação não considera tempo
+- Plano de experimentos
+    - Algoritmo
+    - Tamanho do vetor a ser ordenado
+    - Semente aleatória
+### Algoritimos
+- Seleção
+    - Iterativo
+    - Recursivo
+- Inserção
+- QuickSort
+    - Padrão
+    - Mediana de 3
+    - Inserção para partições pequenas (p.ex., 50)
+    - Mediana de 3 e Inserção
+- Shellsort
+    - Utilizando sequência n/2i
 
 
 ## Testes Locais
