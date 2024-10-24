@@ -41,6 +41,19 @@ void shellSort(int *A, int n, sortperf_t *s)
 // selection sort
 void selectionSort(int arr[], int l, int r, sortperf_t *s)
 {
+    int i, j, min;
+    inccalls(s, 1);
+    for (i = 0; i < r - 1; i++)
+    {
+        min = i;
+        for (j = i + 1; j < r; j++)
+        {
+            inccmp(s, 1);
+            if (arr[j] < arr[min])
+                min = j;
+        }
+        swap(&arr[i], &arr[min], s);
+    }
     return;
 }
 
