@@ -7,6 +7,7 @@
 #include "instrumentation.h"
 
 void initVector(int *vet, int size);
+void printVector(int *vet, int size);
 void swap(int *xp, int *yp, sortperf_t *s);
 void recursiveSelectionSort(int arr[], int l, int r, sortperf_t *s);
 

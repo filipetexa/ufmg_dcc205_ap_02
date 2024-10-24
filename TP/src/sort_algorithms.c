@@ -1,4 +1,4 @@
-#include "../include/recursive_selector.h"
+#include "../include/sort_algorithms.h"
 
 void initVector(int *vet, int size)
 {
@@ -11,6 +11,20 @@ void initVector(int *vet, int size)
         vet[i] = (int)(drand48() * size);
     }
 }
+
+void printVector(int *vet, int size)
+{
+    // Descricao: inicializa vet com valores aleatorios
+    // Entrada: vet
+    // Saida: vet
+    int i;
+    for (i = 0; i < size; i++)
+    {
+        printf("%d ", vet[i]);
+    }
+    printf("\n");
+}
+
 void swap(int *xp, int *yp, sortperf_t *s)
 {
     int temp = *xp;
