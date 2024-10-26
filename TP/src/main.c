@@ -183,6 +183,7 @@ int main(int argc, char **argv)
     retp = clock_gettime(CLOCK_MONOTONIC, &inittp);
 
     // execute algorithm
+    printVector(vet, opt.size);
     switch (opt.alg)
     {
     case ALGINSERTION:
@@ -210,6 +211,7 @@ int main(int argc, char **argv)
         recursiveSelectionSort(vet, 0, opt.size - 1, &s);
         break;
     }
+    printVector(vet, opt.size);
     retp = clock_gettime(CLOCK_MONOTONIC, &endtp);
     clkDiff(inittp, endtp, &restp);
 

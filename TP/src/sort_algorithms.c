@@ -85,13 +85,48 @@ void partition3(int *A, int l, int r, int *i, int *j, sortperf_t *s)
 }
 
 // standard quicksort partition
-void partition(int *A, int l, int r, int *i, int *j, sortperf_t *s)
+void partition(int *arr, int l, int r, int *i, int *j, sortperf_t *s)
 {
+    // printVector(arr, r - l);
+    int pivot;
+    *i = l;
+    *j = r;
+    pivot = arr[(*i + *j) / 2];
+
+    do
+    {
+        inccmp(s, 1);
+        while (pivot > arr[*i])
+        {
+            inccmp(s, 1);
+            (*i)++;
+        }
+        inccmp(s, 1);
+        while (pivot < arr[*j])
+        {
+            inccmp(s, 1);
+            (*j)--;
+        }
+
+        if (*i <= *j)
+        {
+            swap(&arr[*i], &arr[*j], s);
+            (*i)++;
+            (*j)--;
+        }
+    } while (*i <= *j);
 }
 
 // standard quicksort
-void quickSort(int *A, int l, int r, sortperf_t *s)
+void quickSort(int *arr, int l, int r, sortperf_t *s)
 {
+    inccalls(s, 1);
+    int i, j;
+    partition(arr, l, r, &i, &j, s);
+    if (l < j)
+        quickSort(arr, l, j, s);
+    if (i < r)
+        quickSort(arr, i, r, s);
 }
 
 // quicksort with median of 3
