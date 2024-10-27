@@ -80,8 +80,41 @@ int median(int a, int b, int c)
 }
 
 // quicksort partition using median of 3
-void partition3(int *A, int l, int r, int *i, int *j, sortperf_t *s)
+void partition3(int *arr, int l, int r, int *i, int *j, sortperf_t *s)
 {
+    int pivot;
+    *i = l;
+    *j = r;
+    // Implementando a mediana de três para escolher o pivô
+    int mid = l + (r - l) / 2; // Encontra o índice médio
+    if (arr[l] > arr[mid])
+        swap(&arr[l], &arr[mid], s); // Troca se necessário
+    if (arr[l] > arr[r])
+        swap(&arr[l], &arr[r], s); // Troca se necessário
+    if (arr[mid] > arr[r])
+        swap(&arr[mid], &arr[r], s); // Troca se necessário
+
+    pivot = arr[mid];             // A mediana agora está no meio
+    swap(&arr[mid], &arr[*j], s); // Move a mediana para o final para usá-la como pivô
+
+    do
+    {
+        while (arr[*i] < pivot)
+        {
+            (*i)++;
+        }
+        while (arr[*j] > pivot)
+        {
+            (*j)--;
+        }
+
+        if (*i <= *j)
+        {
+            swap(&arr[*i], &arr[*j], s); // Troca os elementos
+            (*i)++;
+            (*j)--;
+        }
+    } while (*i <= *j);
 }
 
 // standard quicksort partition
@@ -130,8 +163,14 @@ void quickSort(int *arr, int l, int r, sortperf_t *s)
 }
 
 // quicksort with median of 3
-void quickSort3(int *A, int l, int r, sortperf_t *s)
+void quickSort3(int *arr, int l, int r, sortperf_t *s)
 {
+    int i, j;
+    partition3(arr, l, r, &i, &j, s);
+    if (l < j)
+        quickSort(arr, l, j, s);
+    if (i < r)
+        quickSort(arr, i, r, s);
 }
 
 // quicksort with insertion for small partitions
