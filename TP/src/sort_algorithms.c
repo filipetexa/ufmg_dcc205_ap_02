@@ -1,4 +1,5 @@
 #include "../include/sort_algorithms.h"
+#define CUTOFF 20
 
 void initVector(int *vet, int size)
 {
@@ -58,8 +59,29 @@ void selectionSort(int arr[], int l, int r, sortperf_t *s)
 }
 
 // insertion sort
-void insertionSort(int v[], int l, int r, sortperf_t *s)
+void insertionSort(int arr[], int l, int r, sortperf_t *s)
 {
+    int i, j, temp;
+    inccalls(s, 1);
+
+    for (i = 0; i < r; i++)
+    {
+        temp = arr[i];
+        incmove(s, 1);
+        j = i;
+
+        while (j > 0 && temp < arr[j - 1])
+        {
+            arr[j] = arr[j - 1];
+            incmove(s, 1);
+            j--;
+            inccmp(s, 1);
+        }
+        inccmp(s, 1);
+        arr[j] = temp;
+        incmove(s, 1);
+    }
+
     return;
 }
 
@@ -99,12 +121,16 @@ void partition3(int *arr, int l, int r, int *i, int *j, sortperf_t *s)
 
     do
     {
+        inccmp(s, 1);
         while (arr[*i] < pivot)
         {
+            inccmp(s, 1);
             (*i)++;
         }
+        inccmp(s, 1);
         while (arr[*j] > pivot)
         {
+            inccmp(s, 1);
             (*j)--;
         }
 
@@ -174,13 +200,40 @@ void quickSort3(int *arr, int l, int r, sortperf_t *s)
 }
 
 // quicksort with insertion for small partitions
-void quickSortIns(int *A, int l, int r, sortperf_t *s)
+void quickSortIns(int *arr, int l, int r, sortperf_t *s)
 {
+    inccalls(s, 1);
+    if (r - l < CUTOFF)
+    {
+        insertionSort(arr, l, r, s);
+        return;
+    }
+
+    int i, j;
+    partition(arr, l, r, &i, &j, s);
+    if (l < j)
+        quickSortIns(arr, l, j, s);
+    if (i < r)
+        quickSortIns(arr, i, r, s);
 }
 
 // quicksort with insertion for small partitions and median of 3
-void quickSort3Ins(int *A, int l, int r, sortperf_t *s)
+void quickSort3Ins(int *arr, int l, int r, sortperf_t *s)
 {
+
+    inccalls(s, 1);
+    if (r - l < CUTOFF)
+    {
+        insertionSort(arr, l, r, s);
+        return;
+    }
+
+    int i, j;
+    partition3(arr, l, r, &i, &j, s);
+    if (l < j)
+        quickSort3Ins(arr, l, j, s);
+    if (i < r)
+        quickSort3Ins(arr, i, r, s);
 }
 
 // recursive selection sort
